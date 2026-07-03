@@ -1,0 +1,37 @@
+## Use "make defconfig" to expand this to a full .config
+## Target: ASUS OnHub SRT-AC1900 (ipq806x/chromium subtarget)
+CONFIG_TARGET_ipq806x_chromium_DEVICE_asus_onhub=y
+CONFIG_TARGET_ipq806x_chromium=y
+CONFIG_TARGET_ipq806x=y
+CONFIG_EXPERIMENTAL=y
+
+## NSS hardware-offload drivers (same set tingalvin ships for the R7800;
+## verified these are NOT subtarget-gated, so they build fine for chromium too)
+CONFIG_PACKAGE_kmod-nss-ifb=y
+CONFIG_PACKAGE_kmod-qca-mcs=y
+CONFIG_PACKAGE_kmod-qca-nss-cfi-cryptoapi=y
+CONFIG_PACKAGE_kmod-qca-nss-crypto=y
+CONFIG_PACKAGE_kmod-qca-nss-drv=y
+CONFIG_PACKAGE_kmod-qca-nss-drv-igs=y
+CONFIG_PACKAGE_kmod-qca-nss-drv-pppoe=y
+CONFIG_PACKAGE_kmod-qca-nss-drv-qdisc=y
+CONFIG_PACKAGE_kmod-qca-nss-drv-tun6rd=y
+CONFIG_PACKAGE_kmod-qca-nss-drv-tunipip6=y
+CONFIG_PACKAGE_kmod-qca-nss-gmac=y
+CONFIG_PACKAGE_kmod-qca-nss-ecm-standard=y
+CONFIG_PACKAGE_MAC80211_NSS_SUPPORT=y
+CONFIG_PACKAGE_MAC80211_DEBUGFS=y
+
+## Left as chromium/target.mk + asus_onhub DEVICE_PACKAGES defaults on purpose:
+## - kmod-ath10k-ct + ath10k-firmware-qca988x-ct (Candela Technologies drivers,
+##   same ones the proven 23.05.5 OnHub NSS build used)
+## - wpad-basic-mbedtls
+## Override to non-CT/openssl only if you hit wifi stability issues later.
+
+## LuCI - comment these three out for a leaner first-boot image if you're
+## worried about squashfs/overlay headroom on first build
+CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_luci-app-ddns=y
+CONFIG_PACKAGE_luci-proto-wireguard=y
+
+CONFIG_VERSION_REPO="https://downloads.openwrt.org/releases/24.10.7"
